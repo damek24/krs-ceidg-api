@@ -1,0 +1,34 @@
+{
+    "name": "damianjozwiak/krs-api",
+    "type": "library",
+    "require": {
+        "php": "^8.0",
+        "guzzlehttp/guzzle": "^7.3",
+        "ext-soap": "*",
+        "ext-curl": "*",
+        "ext-dom": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Damian Jóźwiak",
+            "email": "damian.jozwiak.lodz@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Damianjozwiak\\KrsApi\\":"src"
+
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Damianjozwiak\\KrsApi\\Tests\\": "tests"
+        }
+    },
+    "minimum-stability": "stable",
+    "description": "This package helps querying https://api.stat.gov.pl/Home/RegonApi API"
+}
