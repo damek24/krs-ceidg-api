@@ -8,7 +8,7 @@ use DOMDocument;
 use DOMXPath;
 use ReflectionProperty;
 
-class DanePodmiotuResult
+class DanePodmiotuResult extends BaseResponseModel
 {
     private string $Regon;
     private string $Nip;
@@ -23,39 +23,6 @@ class DanePodmiotuResult
     private string $NrNieruchomosci;
     private string $DataZakonczeniaDzialalnosci;
     private string $MiejscowoscPoczty;
-
-//    public function __construct(string $xml)
-//    {
-//        $root = new DOMDocument('1.0','UTF-8');
-//        $root->loadXML($xml);
-//        $xpathvar = new Domxpath($root);
-//        $res = $xpathvar->query('//dane');
-//        $reflection = new \ReflectionClass($this);
-//        foreach($res as $data){
-//            foreach ($data->childNodes as $cnode) {
-//                if (!$reflection->hasProperty($cnode->nodeName)){
-//                    continue;
-//                }
-//                $property = new \ReflectionProperty($this, $cnode->nodeName);
-//                $property->setAccessible(true);
-//                $property->setValue($this, $cnode->nodeValue ?? '');
-//            }
-//
-//        }
-//    }
-
-    public function __construct($childNodes)
-    {
-        $reflection = new \ReflectionClass($this);
-        foreach ($childNodes as $cnode) {
-            if (!$reflection->hasProperty($cnode->nodeName)) {
-                continue;
-            }
-            $property = new ReflectionProperty($this, $cnode->nodeName);
-            $property->setAccessible(true);
-            $property->setValue($this, $cnode->nodeValue ?? '');
-        }
-    }
 
     /**
      * @return string

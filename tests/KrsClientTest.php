@@ -10,7 +10,12 @@ use Damianjozwiak\KrsApi\RequestModels\SzukajPodmioty;
 use Damianjozwiak\KrsApi\RequestModels\Zaloguj;
 use Damianjozwiak\KrsApi\ResponseModels\DanePodmiotowResult;
 use Damianjozwiak\KrsApi\ResponseModels\DanePodmiotuResult;
+use Damianjozwiak\KrsApi\ResponseModels\OsobaFizycznaCeidg;
+use Damianjozwiak\KrsApi\ResponseModels\OsobaFizycznaOgolny;
+use Damianjozwiak\KrsApi\ResponseModels\OsobaPrawnaOgolny;
+use Damianjozwiak\KrsApi\ResponseModels\TypPodmiotu;
 use Damianjozwiak\KrsApi\ResponseModels\ZalogujResult;
+use DOMDocument;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
@@ -55,7 +60,12 @@ class KrsClientTest extends TestCase
     {
         $client = new KrsClient();
         $client->Zaloguj(new Zaloguj($this->key));
+        $data = $client->DanePobierzPelnyRaport(new PelnyRaport('362217064',PelnyRaport::TYP_PODMIOTU));
+        $this->assertInstanceOf(TypPodmiotu::class, $data);
         $data = $client->DanePobierzPelnyRaport(new PelnyRaport('362217064',PelnyRaport::OSOBA_PRAWNA_OGOLNE));
-        $this->assertInstanceOf(stdClass::class, $data);
+        $this->assertInstanceOf(OsobaPrawnaOgolny::class, $data);
+        $data = $client->DanePobierzPelnyRaport(new PelnyRaport('190154916',PelnyRaport::OSOBA_FIZYCZNA_CEIDG));
+        $this->assertInstanceOf(OsobaFizycznaCeidg::class, $data);
     }
+
 }

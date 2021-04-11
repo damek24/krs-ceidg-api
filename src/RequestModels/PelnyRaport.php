@@ -26,6 +26,16 @@ class PelnyRaport extends BaseModel
     }
 
     /**
+     * @return string
+     */
+    public function getRaport(): string
+    {
+        return $this->raport;
+    }
+
+
+
+    /**
      * @return array
      */
     public function getParams(): array
