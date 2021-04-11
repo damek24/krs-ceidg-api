@@ -58,7 +58,25 @@ $data2 = $client->PobierzDaneOsobyFizycznejCeidg('123456789 987654321');
 /** @var $data2 DanePodmiotowResult */
 ```
 
-### 6. function PobierzDaneOsobyPrawnej(string $regon): OsobaPrawnaOgolny | DanePodmiotowResult
+### 6. function PobierzDaneOsobyFizycznejRolnicze(string $regon): OsobaFizycznaCeidg | DanePodmiotowResult
+Przykładowe wywołania. W wywołaniu można podać też pojedynczy regon lub ich listę
+```
+$data = $client->PobierzDaneOsobyFizycznejCeidg('123456789');
+/** @var $data OsobaFizycznaCeidg */
+$data2 = $client->PobierzDaneOsobyFizycznejCeidg('123456789 987654321');
+/** @var $data2 DanePodmiotowResult */
+```
+
+### 7. function PobierzDaneOsobyFizycznejPozostale(string $regon): OsobaFizycznaCeidg | DanePodmiotowResult
+Przykładowe wywołania. W wywołaniu można podać też pojedynczy regon lub ich listę
+```
+$data = $client->PobierzDaneOsobyFizycznejCeidg('123456789');
+/** @var $data OsobaFizycznaCeidg */
+$data2 = $client->PobierzDaneOsobyFizycznejCeidg('123456789 987654321');
+/** @var $data2 DanePodmiotowResult */
+```
+
+### 8. function PobierzDaneOsobyPrawnej(string $regon): OsobaPrawnaOgolny | DanePodmiotowResult
 Przykładowe wywołania. W wywołaniu można podać też pojedynczy regon lub ich listę
 ```
 $data = $client->PobierzDaneOsobyPrawnej('123456789');
@@ -67,7 +85,7 @@ $data2 = $client->PobierzDaneOsobyPrawnej('123456789 987654321');
 /** @var $data2 DanePodmiotowResult */
 ```
 
-### 7.function DanePobierzPelnyRaport(PelnyRaport $pelnyRaport)
+### 9.function DanePobierzPelnyRaport(PelnyRaport $pelnyRaport)
 Przykładowe wywołania. W wywołaniu można podać też pojedynczy regon lub ich listę
 ```
 $data = $client->DanePobierzPelnyRaport(new PelnyRaport('123456789',PelnyRaport::OSOBA_FIZYCZNA_PKD));

@@ -10,8 +10,7 @@ use Damianjozwiak\KrsApi\RequestModels\SzukajPodmioty;
 use Damianjozwiak\KrsApi\RequestModels\Zaloguj;
 use Damianjozwiak\KrsApi\ResponseModels\DanePodmiotowResult;
 use Damianjozwiak\KrsApi\ResponseModels\DanePodmiotuResult;
-use Damianjozwiak\KrsApi\ResponseModels\OsobaFizycznaCeidg;
-use Damianjozwiak\KrsApi\ResponseModels\OsobaFizycznaOgolny;
+use Damianjozwiak\KrsApi\ResponseModels\OsobaFizyczna;
 use Damianjozwiak\KrsApi\ResponseModels\OsobaPrawnaOgolny;
 use Damianjozwiak\KrsApi\ResponseModels\TypPodmiotu;
 use Damianjozwiak\KrsApi\ResponseModels\ZalogujResult;
@@ -65,7 +64,7 @@ class KrsClientTest extends TestCase
         $data = $client->DanePobierzPelnyRaport(new PelnyRaport('362217064',PelnyRaport::OSOBA_PRAWNA_OGOLNE));
         $this->assertInstanceOf(OsobaPrawnaOgolny::class, $data);
         $data = $client->DanePobierzPelnyRaport(new PelnyRaport('190154916',PelnyRaport::OSOBA_FIZYCZNA_CEIDG));
-        $this->assertInstanceOf(OsobaFizycznaCeidg::class, $data);
+        $this->assertInstanceOf(OsobaFizyczna::class, $data);
     }
 
 }

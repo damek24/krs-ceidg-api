@@ -8,9 +8,10 @@ use Damianjozwiak\KrsApi\RequestModels\PelnyRaport;
 use Damianjozwiak\KrsApi\RequestModels\RequiredHeaders;
 use Damianjozwiak\KrsApi\RequestModels\SzukajPodmioty;
 use Damianjozwiak\KrsApi\RequestModels\Zaloguj;
+use Damianjozwiak\KrsApi\ResponseModels\BaseResponseModel;
 use Damianjozwiak\KrsApi\ResponseModels\DanePodmiotowResult;
 use Damianjozwiak\KrsApi\ResponseModels\DanePodmiotuResult;
-use Damianjozwiak\KrsApi\ResponseModels\OsobaFizycznaCeidg;
+use Damianjozwiak\KrsApi\ResponseModels\OsobaFizyczna;
 use Damianjozwiak\KrsApi\ResponseModels\OsobaFizycznaOgolny;
 use Damianjozwiak\KrsApi\ResponseModels\OsobaPrawnaOgolny;
 use Damianjozwiak\KrsApi\ResponseModels\TypPodmiotu;
@@ -117,7 +118,7 @@ class KrsClient extends SoapClient
     }
 
     public function DanePobierzPelnyRaport(PelnyRaport $pelnyRaport):
-    null|\stdClass|TypPodmiotu|OsobaPrawnaOgolny|OsobaFizycznaOgolny | OsobaFizycznaCeidg | DanePodmiotowResult {
+    null|\stdClass|TypPodmiotu|OsobaPrawnaOgolny|OsobaFizycznaOgolny | OsobaFizyczna | DanePodmiotowResult {
         $headers = new RequiredHeaders('DanePobierzPelnyRaport');
         $this->__setSoapHeaders($headers->getHeaders());
         $data = $this->__soapCall('DanePobierzPelnyRaport', $pelnyRaport->getParams());
@@ -131,7 +132,9 @@ class KrsClient extends SoapClient
                 PelnyRaport::TYP_PODMIOTU => new TypPodmiotu($nodes),
                 PelnyRaport::OSOBA_PRAWNA_OGOLNE => new OsobaPrawnaOgolny($nodes),
                 PelnyRaport::OSOBA_FIZYCZNA_OGOLNE => new OsobaFizycznaOgolny($nodes),
-                PelnyRaport::OSOBA_FIZYCZNA_CEIDG => new OsobaFizycznaCeidg($nodes),
+                PelnyRaport::OSOBA_FIZYCZNA_CEIDG,
+                PelnyRaport::OSOBA_FIZYCZNA_POZOSTALA,
+                PelnyRaport::OSOBA_FIZYCZNA_ROLNICZA => new OsobaFizyczna($nodes),
                 default => $data
             };
         } else {
@@ -142,7 +145,9 @@ class KrsClient extends SoapClient
                         PelnyRaport::TYP_PODMIOTU => new TypPodmiotu($dataItem->childNodes),
                         PelnyRaport::OSOBA_PRAWNA_OGOLNE => new OsobaPrawnaOgolny($dataItem->childNodes),
                         PelnyRaport::OSOBA_FIZYCZNA_OGOLNE => new OsobaFizycznaOgolny($dataItem->childNodes),
-                        PelnyRaport::OSOBA_FIZYCZNA_CEIDG => new OsobaFizycznaCeidg($dataItem->childNodes),
+                        PelnyRaport::OSOBA_FIZYCZNA_CEIDG,
+                        PelnyRaport::OSOBA_FIZYCZNA_POZOSTALA,
+                        PelnyRaport::OSOBA_FIZYCZNA_ROLNICZA => new OsobaFizyczna($dataItem->childNodes),
                         default => $data
                     };
                 }
@@ -176,9 +181,29 @@ class KrsClient extends SoapClient
      * @param string $regon Pojedynczy regon lub lista maksymalnie 20 wartosci rozdzielonych spacjami
      * @return TypPodmiotu|DanePodmiotowResult
      */
-    public function PobierzDaneOsobyFizycznejCeidg(string $regon): OsobaFizycznaCeidg | DanePodmiotowResult
+    public function PobierzDaneOsobyFizycznejCeidg(string $regon): OsobaFizyczna | DanePodmiotowResult
     {
         $pelnyRaport = new PelnyRaport($regon, PelnyRaport::OSOBA_FIZYCZNA_CEIDG);
+        return $this->DanePobierzPelnyRaport($pelnyRaport);
+    }
+
+    /**
+     * @param string $regon Pojedynczy regon lub lista maksymalnie 20 wartosci rozdzielonych spacjami
+     * @return TypPodmiotu|DanePodmiotowResult
+     */
+    public function PobierzDaneOsobyFizycznejPozostale(string $regon): OsobaFizyczna | DanePodmiotowResult
+    {
+        $pelnyRaport = new PelnyRaport($regon, PelnyRaport::OSOBA_FIZYCZNA_POZOSTALA);
+        return $this->DanePobierzPelnyRaport($pelnyRaport);
+    }
+
+    /**
+     * @param string $regon Pojedynczy regon lub lista maksymalnie 20 wartosci rozdzielonych spacjami
+     * @return TypPodmiotu|DanePodmiotowResult
+     */
+    public function PobierzDaneOsobyFizycznejRolnicze(string $regon): OsobaFizyczna | DanePodmiotowResult
+    {
+        $pelnyRaport = new PelnyRaport($regon, PelnyRaport::OSOBA_FIZYCZNA_ROLNICZA);
         return $this->DanePobierzPelnyRaport($pelnyRaport);
     }
 

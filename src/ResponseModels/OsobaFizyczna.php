@@ -4,7 +4,7 @@
 namespace Damianjozwiak\KrsApi\ResponseModels;
 
 
-class OsobaFizycznaCeidg extends BaseResponseModel
+class OsobaFizyczna extends BaseResponseModel
 {
     private string $fiz_nazwa;
     private string $fiz_nazwaSkrocona;
